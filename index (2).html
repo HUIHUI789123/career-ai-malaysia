@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Career AI Malaysia - Career Match</title>
+<style>
+:root{--bg:#07111f;--card:#0f1d2e;--card2:#13263d;--text:#f5f7fb;--muted:#aebbd0;--accent:#2ea3ff;--accent2:#6fd3ff;--ok:#35c98b;--line:#233954}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(180deg,#06101d,#0a1728 55%,#07111f);color:var(--text);min-height:100vh}.wrap{max-width:760px;margin:auto;padding:24px 16px 48px}.brand{display:flex;gap:12px;align-items:center;margin:8px 0 22px}.logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#06101d;font-weight:900;font-size:24px}.brand h1{font-size:20px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.hero,.card{background:rgba(15,29,46,.96);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.24)}.hero h2{font-size:30px;line-height:1.15;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.6}.pill{display:inline-block;padding:7px 10px;border-radius:999px;background:#102d49;color:#8fd5ff;font-size:12px;margin-bottom:12px}.btn{width:100%;border:0;border-radius:14px;padding:15px 18px;font-weight:800;font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04111e;margin-top:14px}.btn.secondary{background:#182c44;color:#e8f2ff;border:1px solid #2b4968}.progress{height:8px;background:#14263a;border-radius:999px;overflow:hidden;margin-bottom:18px}.progress>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:.3s}.qnum{font-size:13px;color:#77c9ff;font-weight:700}.question h3{font-size:22px;margin:8px 0 18px;line-height:1.35}.options{display:grid;gap:10px}.opt{display:block;padding:14px 14px;border:1px solid #28415e;border-radius:14px;background:#102137;cursor:pointer;transition:.2s}.opt:hover{border-color:#4cb9ff;transform:translateY(-1px)}.opt input{margin-right:10px}.en{font-weight:700}.zh{display:block;color:var(--muted);font-size:14px;margin-top:4px}.hidden{display:none}.result-top{display:grid;gap:12px}.result-type{padding:16px;border-radius:14px;background:#0d2945;border:1px solid #2d5f88}.result-type b{font-size:20px}.jobs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.job{padding:12px;background:#102137;border:1px solid #29445f;border-radius:12px}.service{display:grid;gap:8px;margin-top:14px}.service div{padding:11px 12px;border-radius:10px;background:#0d2034;color:#dbeaff}.note{font-size:12px;color:#8798af;line-height:1.5;margin-top:18px}.footer{text-align:center;color:#7689a2;font-size:12px;margin-top:20px}@media(max-width:560px){.hero h2{font-size:25px}.jobs{grid-template-columns:1fr}.wrap{padding-top:14px}.hero,.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><div class="logo">AI</div><div><h1>Career AI Malaysia</h1><p>AI Career Guidance • Resume • Mock Interview</p></div></div>
+
+  <section id="start" class="hero">
+    <span class="pill">Bilingual Career Match • 双语职业匹配</span>
+    <h2>Discover Your Ideal Career<br><span style="color:#75d4ff">找到适合你的职业</span></h2>
+    <p>Answer 10 simple questions to discover career paths that match your interests, personality and strengths.<br><br>回答 10 个简单问题，根据你的兴趣、个性和优势找到适合你的职业方向。</p>
+    <button class="btn" onclick="startQuiz()">Start Career Test / 开始职业测试</button>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <div class="progress"><div id="bar"></div></div>
+    <div id="questionBox"></div>
+    <button class="btn" id="nextBtn" onclick="nextQuestion()">Next / 下一题</button>
+  </section>
+
+  <section id="result" class="card hidden">
+    <div class="qnum">YOUR CAREER MATCH / 你的职业匹配结果</div>
+    <h2 style="margin-top:8px">Career Match Result / 职业匹配结果</h2>
+    <div id="resultContent"></div>
+    <button class="btn secondary" onclick="restart()">Retake Test / 重新测试</button>
+  </section>
+  <div class="footer">Career AI Malaysia • Student Career Discovery Prototype</div>
+</div>
+<script>
+const questions=[
+{en:'What type of activity do you enjoy most?',zh:'你最喜欢哪一类活动？',opts:[['A','Building, fixing or using tools','动手制作、维修或使用工具'],['B','Researching and solving problems','研究和解决问题'],['C','Designing or creating something new','设计或创作新事物'],['D','Helping or teaching others','帮助或教导别人'],['E','Leading, selling or persuading','领导、销售或说服别人'],['F','Organising information and records','整理资料和记录']]},
+{en:'Which school or work task do you prefer?',zh:'你比较喜欢哪一种学习或工作任务？',opts:[['A','Practical hands-on tasks','实际操作型任务'],['B','Data analysis and research','数据分析与研究'],['C','Creative projects','创意项目'],['D','Teamwork and communication','团队合作与沟通'],['E','Business planning','商业规划'],['F','Administrative work','行政与文书工作']]},
+{en:'Which environment do you prefer?',zh:'你比较喜欢哪种工作环境？',opts:[['A','Outdoor, workshop or technical environment','户外、工作坊或技术环境'],['B','Laboratory or research environment','实验室或研究环境'],['C','Creative studio','创意工作室'],['D','School, hospital or community','学校、医院或社区'],['E','Corporate or business environment','企业或商业环境'],['F','Structured office environment','有制度的办公室环境']]},
+{en:'What are you usually good at?',zh:'你通常比较擅长什么？',opts:[['A','Practical skills','实际操作技能'],['B','Logical thinking','逻辑思考'],['C','Creativity','创意'],['D','Communication','沟通'],['E','Leadership','领导能力'],['F','Organisation','整理与规划']]},
+{en:'Which task sounds most interesting?',zh:'以下哪项任务最吸引你？',opts:[['A','Repairing equipment','维修设备'],['B','Analysing information','分析资料'],['C','Creating advertisements','制作广告'],['D','Advising someone about a problem','帮助别人解决问题'],['E','Presenting a business idea','展示商业方案'],['F','Managing documents','管理文件']]},
+{en:'How would your friends describe you?',zh:'你的朋友通常会怎样形容你？',opts:[['A','Practical','实际'],['B','Curious','好奇'],['C','Creative','有创意'],['D','Friendly','友善'],['E','Confident','有自信'],['F','Organised','有条理']]},
+{en:'If you joined a project, which role would you choose?',zh:'如果参加一个项目，你会选择什么角色？',opts:[['A','Build or operate the product','制作或操作产品'],['B','Research and analyse','研究与分析'],['C','Design the visuals','设计视觉内容'],['D','Support the team','协助团队成员'],['E','Lead the team','带领团队'],['F','Manage the schedule and documents','管理时间表和文件']]},
+{en:'Which subject interests you most?',zh:'你对哪一类科目最有兴趣？',opts:[['A','Engineering or technical subjects','工程或技术类'],['B','Science or mathematics','科学或数学'],['C','Art, design or media','艺术、设计或媒体'],['D','Psychology or education','心理学或教育'],['E','Business or marketing','商业或市场营销'],['F','Accounting or administration','会计或行政管理']]},
+{en:'What motivates you most at work?',zh:'工作中什么最能激励你？',opts:[['A','Seeing practical results','看到实际成果'],['B','Solving difficult problems','解决困难问题'],['C','Expressing ideas','表达创意'],['D','Helping people','帮助别人'],['E','Achieving business targets','达成商业目标'],['F','Keeping everything organised','让事情井然有序']]},
+{en:'Which career sounds most attractive?',zh:'哪一种职业听起来最吸引你？',opts:[['A','Engineer or Technician','工程师或技术人员'],['B','Data Analyst or Researcher','数据分析师或研究员'],['C','Designer or Content Creator','设计师或内容创作者'],['D','Teacher, HR or Counsellor','教师、人力资源或辅导员'],['E','Marketing, Sales or Entrepreneur','市场营销、销售或创业者'],['F','Accountant or Administrator','会计师或行政人员']]}
+];
+const types={
+A:{name:'Realistic / 实践型',desc:'You prefer practical, hands-on work and visible results. / 你偏好实际操作、技术性工作和看得见的成果。',jobs:['Engineer / 工程师','Technician / 技术人员','Operations Executive / 营运专员','Technical Specialist / 技术专员']},
+B:{name:'Investigative / 研究型',desc:'You enjoy analysis, research, logic and solving complex problems. / 你喜欢分析、研究、逻辑思考和解决复杂问题。',jobs:['Data Analyst / 数据分析师','Researcher / 研究员','Software Developer / 软件开发员','Financial Analyst / 财务分析师']},
+C:{name:'Artistic / 艺术型',desc:'You value creativity, originality and expressing ideas. / 你重视创意、原创性和表达想法。',jobs:['Graphic Designer / 平面设计师','Content Creator / 内容创作者','UI/UX Designer / UI/UX设计师','Digital Marketer / 数码营销人员']},
+D:{name:'Social / 社会型',desc:'You enjoy helping, teaching, communicating and working with people. / 你喜欢帮助、教导、沟通以及与人合作。',jobs:['HR Executive / 人力资源专员','Teacher / 教师','Counsellor / 辅导员','Customer Success Executive / 客户成功专员']},
+E:{name:'Enterprising / 企业型',desc:'You enjoy leading, persuading, business and achieving targets. / 你喜欢领导、说服、商业活动和达成目标。',jobs:['Marketing Executive / 市场营销专员','Business Development Executive / 商务拓展专员','Sales Executive / 销售专员','Entrepreneur / 创业者']},
+F:{name:'Conventional / 常规型',desc:'You prefer structure, organisation, accuracy and clear processes. / 你偏好有结构、重视准确度和清晰流程的工作。',jobs:['Accountant / 会计师','Administrator / 行政人员','Finance Executive / 财务专员','Operations Coordinator / 营运协调员']}
+};
+let current=0, answers=[];
+function startQuiz(){document.getElementById('start').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');renderQ();}
+function renderQ(){const q=questions[current];document.getElementById('bar').style.width=((current)/questions.length*100)+'%';document.getElementById('questionBox').innerHTML=`<div class="qnum">QUESTION ${current+1} / ${questions.length}</div><div class="question"><h3>${q.en}<span class="zh">${q.zh}</span></h3><div class="options">${q.opts.map((o,i)=>`<label class="opt"><input type="radio" name="ans" value="${o[0]}" ${answers[current]===o[0]?'checked':''}><span class="en">${o[0]}. ${o[1]}</span><span class="zh">${o[2]}</span></label>`).join('')}</div></div>`;document.getElementById('nextBtn').textContent=current===questions.length-1?'View Result / 查看结果':'Next / 下一题';}
+function nextQuestion(){const pick=document.querySelector('input[name="ans"]:checked');if(!pick){alert('Please choose one answer. / 请选择一个答案。');return;}answers[current]=pick.value;if(current<questions.length-1){current++;renderQ();}else{showResult();}}
+function showResult(){const counts={A:0,B:0,C:0,D:0,E:0,F:0};answers.forEach(a=>counts[a]++);const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);const t1=types[sorted[0][0]],t2=types[sorted[1][0]];const jobs=[...t1.jobs,...t2.jobs].filter((v,i,a)=>a.indexOf(v)===i).slice(0,6);document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.remove('hidden');document.getElementById('resultContent').innerHTML=`<div class="result-top"><div class="result-type"><b>${t1.name}</b><div class="zh" style="margin-top:8px">${t1.desc}</div></div><div class="result-type"><b>${t2.name}</b><div class="zh" style="margin-top:8px">${t2.desc}</div></div></div><h3 style="margin-bottom:8px">Recommended Careers / 推荐职业</h3><div class="jobs">${jobs.map(j=>`<div class="job">${j}</div>`).join('')}</div><h3 style="margin-bottom:6px;margin-top:22px">Career AI Malaysia can help you / Career AI Malaysia 可以协助你</h3><div class="service"><div>AI Career Guidance / AI 职业指导</div><div>Resume Assistance / 履历表协助</div><div>AI Mock Interview / AI 模拟面试</div><div>Career Preparation / 求职准备</div></div><p class="note">This result is a career-interest guide for educational purposes and is not a professional psychological assessment. / 此结果仅作为职业兴趣参考及教育用途，并非专业心理评估。</p>`;window.scrollTo({top:0,behavior:'smooth'});}
+function restart(){current=0;answers=[];document.getElementById('result').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');renderQ();}
+</script>
+</body>
+</html>
